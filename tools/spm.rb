@@ -280,6 +280,8 @@ Used to download files from a manually downloaded zip file.
 * `zip` = *value*
 =end
 
+STDOUT.sync = true
+
 require 'fileutils'
 require 'tempfile'
 require 'find'
