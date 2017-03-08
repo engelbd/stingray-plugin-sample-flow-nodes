@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(editor_plugin)
+project(flow_nodes_sample_plugin)
 
 # Include common plugin CMake scripts and set the type of plugin to be to and EDITOR_PLUGIN
 set(EDITOR_PLUGIN ON)
