@@ -204,7 +204,7 @@ The `packages` section specifies the available packages by name.
 
 * `platforms` = [*value*, ...]:
   Specifies the platform(s) this package is valid for. Possible values are
-  `android`, `ios`, `win64`, `win32`, `xb1`, `ps4`, `osx`, `webgl`, `uwp32`, `uwp64`.
+  `android`, `ios`, `win64`, `win32`, `xb1`, `ps4`, `osx`, `web`, `uwp32`, `uwp64`.
   If not specified, the package is assumed to be valid for all platforms.
 
 * `devenvs` = [*value*, ...]:
@@ -518,14 +518,14 @@ Win32 = Platform.new('win32')
 XboxOne = Platform.new('xb1')
 PS4 = Platform.new('ps4')
 OSX = Platform.new('osx')
-WebGL = Platform.new('webgl')
+Web = Platform.new('web')
 UWP32 = Platform.new('uwp32')
 UWP64 = Platform.new('uwp64')
 Linux = Platform.new('linux')
 
 class Platform
 	def self.all
-		[Android, IOS, Win64, Win32, XboxOne, PS4, OSX, WebGL, UWP32, UWP64, Linux]
+		[Android, IOS, Win64, Win32, XboxOne, PS4, OSX, Web, UWP32, UWP64, Linux]
 	end
 	def self.from_s(name)
 		all.each {|p| return p if name == p.name}
