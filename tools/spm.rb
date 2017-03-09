@@ -402,19 +402,7 @@ class << Configuration
 end
 
 Configuration.lib_dir = ENV['SR_LIB_DIR']
-if Configuration.lib_dir != nil and !Configuration.lib_dir.empty?
-	Configuration.lib_dir = Configuration.lib_dir.gsub("\\", "/")
-	Configuration.lib_dir = Configuration.lib_dir.gsub("\"", "")
-else
-	puts "\nERROR: SR_LIB_DIR environment variable not set! Please set SR_LIB_DIR environment variable to library path.".bold.red
-	exit 1
-end
-
 Configuration.tmp_dir = ENV['SR_TMP_DIR']
-if Configuration.tmp_dir != nil and !Configuration.tmp_dir.empty?
-	Configuration.tmp_dir = Configuration.tmp_dir.gsub("\\", "/")
-	Configuration.tmp_dir = Configuration.tmp_dir.gsub("\"", "")
-end
 
 Configuration.num_threads = 64
 Configuration.part_size = 10
@@ -1466,6 +1454,17 @@ class Manager < Thor
 		Configuration.verbose = options[:verbose]
 		Configuration.lib_dir = options[:lib_dir] if options[:lib_dir]
 		Configuration.tmp_dir = options[:tmp_dir] if options[:tmp_dir]
+
+		if Configuration.lib_dir != nil and !Configuration.lib_dir.empty?
+			Configuration.lib_dir = Configuration.lib_dir.gsub("\\", "/").gsub("\"", "")
+		else
+			puts "\nERROR: SR_LIB_DIR environment variable not set! Please set SR_LIB_DIR environment variable to library path.".bold.red
+			exit 1
+		end
+
+		if Configuration.tmp_dir != nil and !Configuration.tmp_dir.empty?
+			Configuration.tmp_dir = Configuration.tmp_dir.gsub("\\", "/").gsub("\"", "")
+		end
 
 		# Uncomment to have more flexible options in spm.rb
 		# Configuration.num_threads = options[:num_threads]
