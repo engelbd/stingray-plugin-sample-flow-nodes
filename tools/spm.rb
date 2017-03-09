@@ -204,7 +204,7 @@ The `packages` section specifies the available packages by name.
 
 * `platforms` = [*value*, ...]:
   Specifies the platform(s) this package is valid for. Possible values are
-  `android`, `ios`, `win64`, `win32`, `xb1`, `ps4`, `osx`, `webgl`, `uwp32`, `uwp64`.
+  `android`, `ios`, `win64`, `win32`, `xb1`, `ps4`, `osx`, `web`, `uwp32`, `uwp64`.
   If not specified, the package is assumed to be valid for all platforms.
 
 * `devenvs` = [*value*, ...]:
@@ -279,6 +279,8 @@ Used to download files from a manually downloaded zip file.
 
 * `zip` = *value*
 =end
+
+STDOUT.sync = true
 
 require 'fileutils'
 require 'tempfile'
@@ -400,19 +402,7 @@ class << Configuration
 end
 
 Configuration.lib_dir = ENV['SR_LIB_DIR']
-if Configuration.lib_dir != nil and !Configuration.lib_dir.empty?
-	Configuration.lib_dir = Configuration.lib_dir.gsub("\\", "/")
-	Configuration.lib_dir = Configuration.lib_dir.gsub("\"", "")
-else
-	puts "\nERROR: SR_LIB_DIR environment variable not set! Please set SR_LIB_DIR environment variable to library path.".bold.red
-	exit 1
-end
-
 Configuration.tmp_dir = ENV['SR_TMP_DIR']
-if Configuration.tmp_dir != nil and !Configuration.tmp_dir.empty?
-	Configuration.tmp_dir = Configuration.tmp_dir.gsub("\\", "/")
-	Configuration.tmp_dir = Configuration.tmp_dir.gsub("\"", "")
-end
 
 Configuration.num_threads = 64
 Configuration.part_size = 10
@@ -518,14 +508,14 @@ Win32 = Platform.new('win32')
 XboxOne = Platform.new('xb1')
 PS4 = Platform.new('ps4')
 OSX = Platform.new('osx')
-WebGL = Platform.new('webgl')
+Web = Platform.new('web')
 UWP32 = Platform.new('uwp32')
 UWP64 = Platform.new('uwp64')
 Linux = Platform.new('linux')
 
 class Platform
 	def self.all
-		[Android, IOS, Win64, Win32, XboxOne, PS4, OSX, WebGL, UWP32, UWP64, Linux]
+		[Android, IOS, Win64, Win32, XboxOne, PS4, OSX, Web, UWP32, UWP64, Linux]
 	end
 	def self.from_s(name)
 		all.each {|p| return p if name == p.name}
@@ -1464,6 +1454,17 @@ class Manager < Thor
 		Configuration.verbose = options[:verbose]
 		Configuration.lib_dir = options[:lib_dir] if options[:lib_dir]
 		Configuration.tmp_dir = options[:tmp_dir] if options[:tmp_dir]
+
+		if Configuration.lib_dir != nil and !Configuration.lib_dir.empty?
+			Configuration.lib_dir = Configuration.lib_dir.gsub("\\", "/").gsub("\"", "")
+		else
+			puts "\nERROR: SR_LIB_DIR environment variable not set! Please set SR_LIB_DIR environment variable to library path.".bold.red
+			exit 1
+		end
+
+		if Configuration.tmp_dir != nil and !Configuration.tmp_dir.empty?
+			Configuration.tmp_dir = Configuration.tmp_dir.gsub("\\", "/").gsub("\"", "")
+		end
 
 		# Uncomment to have more flexible options in spm.rb
 		# Configuration.num_threads = options[:num_threads]
