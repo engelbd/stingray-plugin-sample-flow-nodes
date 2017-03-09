@@ -33,4 +33,4 @@ Run the `make.rb` script in the root directory of this repository.
 
 Once you've successfully built the flow nodes sample plugin, you can zip the `plugin` folder and **distribute** your plugin. For help getting started with with the Stingray SDK, see the tutorial videos and topics in the [main Stingray SDK Help](http://help.autodesk.com/view/Stingray/ENU/?guid=__sdk_help_introduction_html).
 
-For more details regarding building your own plugins see the stingray-plugin repository: https://git.autodesk.com/gameware/stingray-plugin
+For more details regarding building your own plugins see the stingray-plugin repository: https://github.com/AutodeskGames/stingray-plugin
